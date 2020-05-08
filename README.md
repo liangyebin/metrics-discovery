@@ -15,6 +15,7 @@ https://opensource.org/licenses/MIT
 
 ## Supported Platforms
 
+- Intel(R) Processors with Gen12 graphics devices (formerly Tiger Lake, DG1),
 - Intel(R) Processors with Gen11 graphics devices (formerly Ice Lake, Elkhart Lake),
 - Intel(R) Processors with Gen9 graphics devices (formerly Skylake, Kaby Lake, Apollo Lake/Broxton, Gemini Lake, Coffee Lake),
 - Intel(R) Processors with Gen8 graphics devices (formerly Broadwell),

@@ -99,6 +99,16 @@ CMetricsDevice* g_MetricsDevice = NULL;
     TCompletionCode CreateObjectTreeEHL_OA(CConcurrentGroup* aGroup);
 #endif
 
+#if (!defined(MD_INCLUDE_TGL_METRICS) && MD_INCLUDE_ALL_METRICS) || MD_INCLUDE_TGL_METRICS
+#define MD_CALL_TGL_METRICS 1
+    TCompletionCode CreateObjectTreeTGL_OA(CConcurrentGroup* aGroup);
+#endif
+
+#if (!defined(MD_INCLUDE_DG1_METRICS) && MD_INCLUDE_ALL_METRICS) || MD_INCLUDE_DG1_METRICS
+#define MD_CALL_DG1_METRICS 1
+    TCompletionCode CreateObjectTreeDG1_OA(CConcurrentGroup* aGroup);
+#endif
+
 uint32_t        g_mdRefCounter       = 0;
 void*           g_OpenCloseSemaphore = NULL;
 
@@ -114,11 +124,15 @@ TCompletionCode AddGlobalSymbols( CSymbolSet* globalSymbolSet )
   
     globalSymbolSet->AddSymbolUINT32( "EuSubslicesPerSliceCount", 3, SYMBOL_TYPE_DETECT );
   
+    globalSymbolSet->AddSymbolUINT32( "EuDualSubslicesTotalCount", 0, SYMBOL_TYPE_DETECT );
+  
     globalSymbolSet->AddSymbolUINT32( "EuSlicesTotalCount", 2, SYMBOL_TYPE_DETECT );
   
     globalSymbolSet->AddSymbolUINT32( "EuThreadsCount", 8, SYMBOL_TYPE_DETECT );
   
     globalSymbolSet->AddSymbolUINT64( "SubsliceMask", 0x1FF, SYMBOL_TYPE_DETECT );
+  
+    globalSymbolSet->AddSymbolUINT64( "DualSubsliceMask", 0x0, SYMBOL_TYPE_DETECT );
   
     globalSymbolSet->AddSymbolUINT32( "SliceMask", 0x7, SYMBOL_TYPE_DETECT );
   
@@ -190,7 +204,7 @@ TCompletionCode CreateObjectTree( IMetricsDevice_1_5** metricsDevice )
     aGroup = g_MetricsDevice->AddConcurrentGroup( "OcclusionQueryStats", "Occlusion Query Statistics", MEASUREMENT_TYPE_DELTA_QUERY );
     MD_CHECK_PTR( aGroup );
     
-    platformMask = PLATFORM_HSW|PLATFORM_BDW|PLATFORM_SKL|PLATFORM_BXT|PLATFORM_GLK|PLATFORM_KBL|PLATFORM_CFL|PLATFORM_ICL|PLATFORM_EHL;
+    platformMask = PLATFORM_HSW|PLATFORM_BDW|PLATFORM_SKL|PLATFORM_BXT|PLATFORM_GLK|PLATFORM_KBL|PLATFORM_CFL|PLATFORM_ICL|PLATFORM_EHL|PLATFORM_TGL|PLATFORM_DG1;
     if( MD_IS_INTERNAL_BUILD || g_MetricsDevice->IsPlatformTypeOf( platformMask ) )
     {
         aSet = aGroup->AddMetricSet( "RenderedPixelsStats", "Rendered Pixels Statistics", API_TYPE_OGL4_X,
@@ -214,7 +228,7 @@ TCompletionCode CreateObjectTree( IMetricsDevice_1_5** metricsDevice )
         MD_CHECK_CC( aSet->RefreshConfigRegisters() );
     }
      
-    platformMask = PLATFORM_HSW|PLATFORM_BDW|PLATFORM_SKL|PLATFORM_BXT|PLATFORM_GLK|PLATFORM_KBL|PLATFORM_CFL|PLATFORM_ICL|PLATFORM_EHL;
+    platformMask = PLATFORM_HSW|PLATFORM_BDW|PLATFORM_SKL|PLATFORM_BXT|PLATFORM_GLK|PLATFORM_KBL|PLATFORM_CFL|PLATFORM_ICL|PLATFORM_EHL|PLATFORM_TGL|PLATFORM_DG1;
     if( MD_IS_INTERNAL_BUILD || g_MetricsDevice->IsPlatformTypeOf( platformMask ) )
     {
         aSet = aGroup->AddMetricSet( "RenderedFragmentsStats", "Rendered Fragments Statistics", API_TYPE_OGL|API_TYPE_OGL4_X,
@@ -241,7 +255,7 @@ TCompletionCode CreateObjectTree( IMetricsDevice_1_5** metricsDevice )
     aGroup = g_MetricsDevice->AddConcurrentGroup( "TimestampQuery", "Timestamp Query", MEASUREMENT_TYPE_SNAPSHOT_QUERY );
     MD_CHECK_PTR( aGroup );
     
-    platformMask = PLATFORM_HSW|PLATFORM_BDW|PLATFORM_SKL|PLATFORM_BXT|PLATFORM_GLK|PLATFORM_KBL|PLATFORM_CFL|PLATFORM_ICL|PLATFORM_EHL;
+    platformMask = PLATFORM_HSW|PLATFORM_BDW|PLATFORM_SKL|PLATFORM_BXT|PLATFORM_GLK|PLATFORM_KBL|PLATFORM_CFL|PLATFORM_ICL|PLATFORM_EHL|PLATFORM_TGL|PLATFORM_DG1;
     if( MD_IS_INTERNAL_BUILD || g_MetricsDevice->IsPlatformTypeOf( platformMask ) )
     {
         aSet = aGroup->AddMetricSet( "GPUTimestamp", "GPU Timestamp", API_TYPE_OGL4_X,
@@ -403,7 +417,7 @@ TCompletionCode CreateObjectTree( IMetricsDevice_1_5** metricsDevice )
         MD_CHECK_CC( aSet->RefreshConfigRegisters() );
     }
      
-    platformMask = PLATFORM_ICL|PLATFORM_EHL;
+    platformMask = PLATFORM_ICL|PLATFORM_EHL|PLATFORM_TGL|PLATFORM_DG1;
     if( MD_IS_INTERNAL_BUILD || g_MetricsDevice->IsPlatformTypeOf( platformMask ) )
     {
         aSet = aGroup->AddMetricSet( "PipelineStats", "Pipeline Statistics for OGL4", API_TYPE_OGL|API_TYPE_OGL4_X,
@@ -602,6 +616,14 @@ TCompletionCode CreateObjectTree( IMetricsDevice_1_5** metricsDevice )
   
 #if MD_CALL_EHL_METRICS
     MD_CHECK_CC( CreateObjectTreeEHL_OA(aGroup) );
+#endif
+  
+#if MD_CALL_TGL_METRICS
+    MD_CHECK_CC( CreateObjectTreeTGL_OA(aGroup) );
+#endif
+  
+#if MD_CALL_DG1_METRICS
+    MD_CHECK_CC( CreateObjectTreeDG1_OA(aGroup) );
 #endif
   
 

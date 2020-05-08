@@ -1566,7 +1566,7 @@ TCompletionCode CreateObjectTreeCFL_GT3_OA( CConcurrentGroup* aGroup )
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0xE758, 0x00778008, REGISTER_TYPE_FLEX ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0xE45c, 0x00088078, REGISTER_TYPE_FLEX ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0xE55c, 0x00808708, REGISTER_TYPE_FLEX ));
-        MD_CHECK_CC( aSet->AddStartConfigRegister( 0xE65c, 0x00a08908, REGISTER_TYPE_FLEX ));
+        MD_CHECK_CC( aSet->AddStartConfigRegister( 0xE65c, 0x00222222, REGISTER_TYPE_FLEX ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0x2710, 0x00000000, REGISTER_TYPE_OA ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0x2714, 0x00800000, REGISTER_TYPE_OA ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0x2720, 0x00000000, REGISTER_TYPE_OA ));

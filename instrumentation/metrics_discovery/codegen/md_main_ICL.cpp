@@ -1519,6 +1519,7 @@ TCompletionCode CreateObjectTreeICL_OA( CConcurrentGroup* aGroup )
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0x2714, 0x00800000, REGISTER_TYPE_OA ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0x2720, 0x00000000, REGISTER_TYPE_OA ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0x2724, 0x00800000, REGISTER_TYPE_OA ));
+        MD_CHECK_CC( aSet->AddStartConfigRegister( 0xe65c, 0xffffffff, REGISTER_TYPE_FLEX ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0xe458, 0x00005004, REGISTER_TYPE_FLEX ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0xe558, 0x00000003, REGISTER_TYPE_FLEX ));
         MD_CHECK_CC( aSet->AddStartConfigRegister( 0xe658, 0x00002001, REGISTER_TYPE_FLEX ));

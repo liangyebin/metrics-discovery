@@ -2852,16 +2852,11 @@ TCompletionCode CDriverInterfaceLinuxPerf::GetMesaDeviceInfo( const gen_device_i
 {
     static bool            isMesaDeviceInfoCached = false;
     static gen_device_info cachedMesaDeviceInfo   = {0,};
-    int32_t                deviceId               = -1;
 
-    // 1. Get DeviceId
-    TCompletionCode ret = GetDeviceId( &deviceId );
-    MD_CHECK_CC_RET( ret );
-
-    // 2. Get MesaDeviceInfo if not cached already
+    // Get MesaDeviceInfo if not cached already
     if( !isMesaDeviceInfoCached )
     {
-        if( !gen_get_device_info( deviceId, &cachedMesaDeviceInfo ) )
+        if( !gen_get_device_info_from_fd( m_DrmFd, &cachedMesaDeviceInfo ) )
         {
             MD_LOG( LOG_ERROR, "ERROR: DeviceId not supported" );
             return CC_ERROR_NOT_SUPPORTED;
@@ -3405,6 +3400,17 @@ TCompletionCode CDriverInterfaceLinuxPerf::MapMesaToInstrPlatform( const gen_dev
         else
         {
             *outInstrPlatformId = GENERATION_ICL;
+        }
+    }
+    else if( mesaDeviceInfo->gen == 12 )
+    {
+        if( mesaDeviceInfo->is_dg1 )
+        {
+            *outInstrPlatformId = GENERATION_DG1;
+        }
+        else
+        {
+            *outInstrPlatformId = GENERATION_TGL;
         }
     }
     else
