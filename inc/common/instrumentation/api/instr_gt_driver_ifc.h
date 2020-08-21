@@ -319,6 +319,8 @@ typedef enum
     GENERATION_EHL = 19,
     // 20 reserved
     GENERATION_DG1 = 21,
+    // 22 reserved
+    GENERATION_RKL = 23,
     // ...
     // DO NOT CHANGE ORDER OF THIS ENUM, ADD NEW PLATFORMS AT THE END!
     // It has to be synchronized with metric_discovery_internal_api.h file.

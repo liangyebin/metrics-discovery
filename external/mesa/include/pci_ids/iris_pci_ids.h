@@ -1,4 +1,9 @@
-CHIPSET(0x4905, dg1, "DG1 GT2", "Intel(R) Graphics")
+CHIPSET(0x4c80, rkl_gt1, "RKL GT1", "Intel(R) Graphics") // PO validation only
+CHIPSET(0x4c8a, rkl_gt1, "RKL GT1", "Intel(R) Graphics")
+CHIPSET(0x4c8b, rkl_gt1, "RKL GT1", "Intel(R) Graphics")
+CHIPSET(0x4c8c, rkl_gt05, "RKL GT0.5", "Intel(R) Graphics")
+CHIPSET(0x4c90, rkl_gt1, "RKL GT1", "Intel(R) Graphics")
+CHIPSET(0x4c9a, rkl_gt1, "RKL GT1", "Intel(R) Graphics")
 
 CHIPSET(0x9A40, tgl_gt2, "TGL GT2", "Intel(R) Xe Graphics")
 CHIPSET(0x9A49, tgl_gt2, "TGL GT2", "Intel(R) Xe Graphics")
@@ -11,3 +16,8 @@ CHIPSET(0x9AC0, tgl_gt2, "TGL GT2", "Intel(R) UHD Graphics")
 CHIPSET(0x9AC9, tgl_gt2, "TGL GT2", "Intel(R) UHD Graphics")
 CHIPSET(0x9AD9, tgl_gt2, "TGL GT2", "Intel(R) UHD Graphics")
 CHIPSET(0x9AF8, tgl_gt2, "TGL GT2", "Intel(R) UHD Graphics")
+
+CHIPSET(0x4905, dg1, "DG1 GT2", "Intel(R) Graphics")
+CHIPSET(0x4906, dg1, "DG1 GT2", "Intel(R) Graphics")
+CHIPSET(0x4907, sg1, "SG1 GT2", "Intel(R) Graphics")
+CHIPSET(0x4908, dg1, "DG1 GT2", "Intel(R) Graphics")
